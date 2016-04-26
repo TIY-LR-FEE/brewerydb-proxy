@@ -12,10 +12,9 @@ app.get('*', function(req, res) {
 
   request('https://api.brewerydb.com' + req.url, function (error, response, body) {
     if (!error && response.statusCode === 200) {
-      console.log(body);
       res.send(body);
     }
    });
 });
 
-app.listen(process.env.PORT || 5000);
+app.listen(process.env.PORT || 8000);
