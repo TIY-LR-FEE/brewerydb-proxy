@@ -1,21 +1,22 @@
-var http = require('http');
-var httpProxy = require('http-proxy');
+var express = require('express');
+var request = require('request');
+var app = express();
 var url = require('url');
 
-var proxy = httpProxy.createProxyServer({});
+app.get('*', function(req, res) {
+  var parsedUrl = url.parse(req.url, true);
 
-var server = http.createServer(function(req, res) {
+  parsedUrl.query.key = process.env.BREWERYDB_KEY;
+  parsedUrl.search = null;
+  req.url = url.format(parsedUrl);
 
-    var parsedUrl = url.parse(req.url, true);
-
-    parsedUrl.query.key = process.env.BREWERYDB_KEY;
-    parsedUrl.search = null;
-    req.url = url.format(parsedUrl);
-
-    proxy.web(req, res, {
-        target: 'http://api.brewerydb.com/v2/'
-    });
-
+  request('https://api.brewerydb.com' + req.url, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      console.log(body);
+      res.send(body);
+    }
+   });
 });
 
-server.listen(process.env.PORT || 8000);
+app.listen(8000);
+console.log('Server running on port %d', 8000);

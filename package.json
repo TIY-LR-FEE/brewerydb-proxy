@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/jbarket/brewerydb-proxy#readme",
   "dependencies": {
-    "http-proxy": "^1.13.2"
+    "express": "^4.13.4",
+    "http-proxy": "^1.13.2",
+    "install": "^0.6.1",
+    "npm": "^3.8.7",
+    "request": "^2.72.0"
   }
 }
