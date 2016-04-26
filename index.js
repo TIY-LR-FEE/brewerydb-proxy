@@ -18,5 +18,4 @@ app.get('*', function(req, res) {
    });
 });
 
-app.listen(8000);
-console.log('Server running on port %d', 8000);
+app.listen(process.env.PORT || 5000);
