@@ -16,10 +16,10 @@ app.get('*', function(req, res) {
   parsedUrl.search = null;
   req.url = url.format(parsedUrl);
 
+  console.log("Proxying request for " + req.url);
+
   request('https://api.brewerydb.com' + req.url, function (error, response, body) {
-    if (!error && response.statusCode === 200) {
-      res.send(body);
-    }
+    res.send(body);
    });
 });
 
